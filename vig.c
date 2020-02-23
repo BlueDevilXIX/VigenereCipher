@@ -36,15 +36,15 @@ int main(){
 
 
 		if (m == 4){
-
+			//split cyrptext into 4 substrings
 			for (i = 0; i < size; ++i){
 				if (i*m < n)
 					y1[i] = y[i*m];
-				if ((i*m)+1 < n)
+				if ((i*m)+1 < n)	//this gets us the 2nd letter of every 4letter sequence
 					y2[i] = y[(i*m)+1];
-                                if ((i*m)+2 < n)
+                                if ((i*m)+2 < n)	//and this the third
         	                        y3[i] = y[(i*m)+2];
-                                if ((i*m)+3 < n)
+                                if ((i*m)+3 < n)	//the fourth
                 	                y4[i] = y[(i*m)+3];
 			}
 			printf("m = %d \n", m);
@@ -670,17 +670,17 @@ int main(){
 
 		m++;
 	}
-			
+			//Part2: find the key using the substrings and a known m
 			m = 7;	
-                int size = n / m;       //m=8 results in 157.5
-                int y1[size];                           //first of the substrings, use 4 then 5 all the wy til al 8 are used
+                int size = n / m;       
+                int y1[size];                           
                 int y2[size];
                 int y3[size];
                 int y4[size];
                 int y5[size];
                 int y6[size];
                 int y7[size];
-
+	//split into 7 substrings again
 			for (i = 0; i < size; ++i){
                                 if (i*m < n)
                                         y1[i] = y[i*m];
@@ -715,17 +715,18 @@ int main(){
 			float p[] = {.082, .015, .028, .043, .127, .022, .020, .061, .070, .002, .008, .040, .024, .067, .075, .019, .001, .060, .063, .091, .028, .010, .023, .001, .020, .001};
 			float q[26];
 			
-			
+			// calculate q, the percentage frequency of letters in each substring
                         for (i = 0; i < 26; ++i){
-                                q[i] = f[i] / size;
+                                q[i] = f[i] / size;	//number of appearnces in substring divided by total number of letters in substring
                         }
+			//calculate Mg by creating 26 versions of q by shifting each element to the right (wrapping around) 0-25 indices and taking the dot product of each vector with p
 			float v[26];
 			float mg1[26];
 			int g;
 			for (g = 0; g < 26; ++g){
 				for (i = 0; i < 26; ++i){
-					v[i] = q[(i+g)%26];
-					mg1[g] += v[i] * p[i];
+					v[i] = q[(i+g)%26];		//shift each value and make a new vector
+					mg1[g] += v[i] * p[i];		//calculate the dot product matching each element in each aray
 				}
 			}
 			
@@ -884,9 +885,10 @@ int main(){
 			//print the table
 			char d[] = "Mg";
 			printf("g %10s %10s %10s %10s %10s %10s %10s \n", d, d, d, d, d, d, d);
-			for (g = 0; g < 26; ++g)
+			for (g = 0; g < 26; ++g)							//space them out so it looks like a table without hte lines
 				printf("%.2d %10.4f %10.4f %10.4f %10.4f %10.4f %10.4f %10.4f \n", g, mg1[g], mg2[g], mg3[g], mg4[g], mg5[g], mg6[g], mg7[g]);
-
+			// look for valyes close to .065, there should be only 1 and all other values should be significantly lower.
+			// run two or three times more if any values come out negative, key elements of the table should not be affected though
 
 
 
