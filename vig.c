@@ -907,7 +907,7 @@ int main(){
 	char pt[m*size];
 	for (i = 0; i < m*size; ++i){
 		if (x[i] >= 0 && x[i] <= 25)       //check that its in z_26
-                        pt[i] = x[i] + 'A';             //make the z_26 value a character
+                        pt[i] = x[i] + 'a';             //make the z_26 value a character
         }
 	
 	printf("%s \n", pt);
