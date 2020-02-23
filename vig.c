@@ -877,9 +877,7 @@ int main(){
                         for (g = 0; g < 26; ++g){
                                 for (i = 0; i < 26; ++i){
                                         v7[i] = q7[(i+g)%26];
-					if (g == 20)
-						printf("%f \n", v7[i]);
-                                        mg7[g] += v7[i] * p[i];
+					mg7[g] += v7[i] * p[i];
                                 }
                         }
 
@@ -889,6 +887,36 @@ int main(){
 			for (g = 0; g < 26; ++g)
 				printf("%.2d %10.4f %10.4f %10.4f %10.4f %10.4f %10.4f %10.4f \n", g, mg1[g], mg2[g], mg3[g], mg4[g], mg5[g], mg6[g], mg7[g]);
 
+
+
+
+	//decipher the cryptext
+	int key[] = {18, 19, 17, 4, 0, 12, 18};
+	int x[m*size];
+	for (i = 0; i < size; ++i){
+		x[i*m] = (y1[i] - key[0]+26) % 26;
+                x[(i*m)+1] = (y2[i] - key[1]+26) % 26;
+                x[(i*m)+2] = (y3[i] - key[2]+26) % 26;
+                x[(i*m)+3] = (y4[i] - key[3]+26) % 26;
+                x[(i*m)+4] = (y5[i] - key[4]+26) % 26;
+                x[(i*m)+5] = (y6[i] - key[5]+26) % 26;
+                x[(i*m)+6] = (y7[i] - key[6]+26) % 26;
+	}
+	//x now holds the integer version of the plaintext
+	//lets convert it to a string of letters
+	char pt[m*size];
+	for (i = 0; i < m*size; ++i){
+		if (x[i] >= 0 && x[i] <= 25)       //check that its in z_26
+                        pt[i] = x[i] + 'A';             //make the z_26 value a character
+        }
+	
+	printf("%s \n", pt);
+
+
+
+
+
+		
 
 	return 0;
 
